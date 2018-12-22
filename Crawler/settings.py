@@ -15,7 +15,7 @@ SPIDER_MODULES = ['Crawler.spiders']
 NEWSPIDER_MODULE = 'Crawler.spiders'
 
 
-DEPTH_LIMIT = 8
+DEPTH_LIMIT = 15
 DEPTH_PRIORITY = 2
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'Crawler (+http://www.yourdomain.com)'
@@ -153,5 +153,5 @@ END_DAY = 6000
 END_NOW = datetime.datetime.combine(datetime.date.today(), datetime.time.min)  # 当天0点
 # END_NOW = datetime.datetime.now() #当时
 NOW = datetime.datetime.now()  # 现在时间的格式
-SAVE_PATH = "F:\BDATA\DATA1\\"
+SAVE_PATH = "F:\BDATA\DATA-20181221\\"
 # 新华网，人民网，新浪，网易 搜狐，中新闻网

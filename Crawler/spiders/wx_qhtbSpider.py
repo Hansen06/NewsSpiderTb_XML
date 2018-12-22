@@ -8,54 +8,54 @@ from scrapy.spiders import Rule
 from Crawler.util import *
 from Crawler.items import NewsItem
 
-class TibetXinHuaSpider(CrawlSpider):
-    name = 'tibetcm'
+
+class QhtbSpider(CrawlSpider):
+    name = 'qhtb'
     allowed_domains = [
-        'www.tibetcm.com'
+        'www.qhtb.cn'
     ]
 
     start_urls = [
-        'http://www.tibetcm.com/'
+        'http://www.qhtb.cn/'
     ]
 
     deny_urls = [
-
+        r'.*?/radio/.*?',
     ]
 
     deny_domains = [
-
+        'www.qhtb.cn/radio'
     ]
 
     rules = (
-        Rule(LinkExtractor(allow=r".*?tibetcm.com/.*?", deny=r".*?/\d{4}-\d{2}-\d{2}/.*?" ), follow=True),
-        Rule(LinkExtractor(allow=r".*?/\d{4}-\d{2}-\d{2}/.*?", deny=r".*?tibetcm.com/.*?" ), callback="parse_item", follow=True)
+        Rule(LinkExtractor(allow=r".*?www.qhtb.cn/.*?/\d{4}-\d{2}-\d{2}/\.*?", deny=r".*?www.qhtb.cn/.*?"),follow=True),
+        Rule(LinkExtractor(allow=r".*?www.qhtb.cn/.*?", deny=deny_urls),callback="parse_item", follow=True)
     )
-
     @staticmethod
     def parse_item(response):
+        print('ok')
         sel = Selector(response)
         url = response.request.url
         if re.match(r'.*?/\d{4}-\d{2}-\d{2}/.*?', url):
-
             print('---------------------')
             print(url)
-            content = response.xpath('/html/body/div[6]/div/div/div[3]//p//text()').extract()
+            content = response.xpath('/html/body/div[4]/div[1]/div[1]/div[1]/div[2]//p//text()').extract()
             print(content)
             # 移除编辑
             editor = response.xpath('//*[@class="-articleeditor"]/text()').extract_first()
             if editor:
                 content.remove(editor)
-            publish_time = sel.re(r'\d{4}-\d{2}-\d{2}')[0]
+            publish_time = sel.re(r'\d{4}.\d{2}.\d{2}')[0]
             print(publish_time)
             if ' ' in publish_time:
                 publish_time = publish_time.replace(' ', '')
 
             if content:
                 item = NewsItem(
-                    domainname='http://xizang.news.cn/',
+                    domainname='http://www.qhtb.cn/',
                     chinesename='tibetxinhua',
                     url=sel.root.base,
-                    title=sel.css('#ArticleTit::text').extract_first(),
+                    title=sel.css('.article-title .contenttitle a::text').extract_first(),
                     subtitle=sel.css('.sub::text').extract_first(),
                     language='藏文',
                     encodingtype='utf-8',

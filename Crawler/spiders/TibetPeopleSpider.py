@@ -8,7 +8,7 @@ from scrapy.spiders import Rule
 from Crawler.util import *
 from Crawler.items import NewsItem
 
-
+#url里只有数字
 class TibetPeopleSpider(CrawlSpider):
     name = 'tibet_people'
     allowed_domains = [
@@ -31,7 +31,7 @@ class TibetPeopleSpider(CrawlSpider):
         if re.match(r'.*?tibet.people.com.cn/.*?', url):
             print('---------------------')
             print(url)
-            content = response.xpath('//html/body/div[2]/div[4]/div[1]/div[2]/div[2]/text()').extract()
+            content = response.xpath('/html/body/div[2]/div[3]/div[1]/div[2]/div[2]//text()').extract()
                                    # '//*[@id="rwb_zw"]/p/text() | //*[@id="rwb_zw"]/p/strong/text()'| //*[@id="content"]/p[2]/span/span/text()
             print(content)
             if content:
@@ -55,6 +55,6 @@ class TibetPeopleSpider(CrawlSpider):
                 print(item.get("source", None))
                 print(item.get("author", None))
 
-                item = judge_time_news_people(item)
-                if item:
-                    yield item
+                # item = judge_time_news_people(item)
+                # if item:
+                yield item

@@ -70,6 +70,6 @@ class TibetXinHuaSpider(CrawlSpider):
                 print(item.get("source", None))
                 print(item.get("author", None))
                 # yield item
-                item = judge_time_news(item)
-                if item:
-                    yield item
+                # item = judge_time_news(item)
+                # if item:
+                yield item
