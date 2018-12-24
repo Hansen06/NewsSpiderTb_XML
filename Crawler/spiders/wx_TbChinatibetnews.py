@@ -30,8 +30,8 @@ class TbChinatibetnewsSpider(CrawlSpider):
     ]
 
     rules = (
-        Rule(LinkExtractor(allow=r".*?tb.chinatibetnews.com/\d{6}/.*?", deny=r".*?tb.chinatibetnews.com/.*?"),follow=True),
-        Rule(LinkExtractor(allow=r".*?tb.chinatibetnews.com/.*?", deny=r".*?tb.chinatibetnews.com/\d{6}/.*?"),callback="parse_item", follow=True)
+        Rule(LinkExtractor(allow=r".*?tb.chinatibetnews.com/\/.*/\d{2-8}/.*?", deny=r".*?tb.chinatibetnews.com/.*?"),follow=True),
+        Rule(LinkExtractor(allow=r".*?tb.chinatibetnews.com/.*?", deny=r".*?tb.chinatibetnews.com/\/.*/\d{2-8}/.*?"),callback="parse_item", follow=True)
     )
 
     @staticmethod

@@ -29,8 +29,8 @@ class TiTibet3Spider(CrawlSpider):
     ]
 
     rules = (
-        Rule(LinkExtractor(allow=r".*?tibet.cpc.people.com.cn/\d{6}/.*?", deny=r".*?tibet.cpc.people.com.cn/.*?"), follow=True),
-        Rule(LinkExtractor(allow=r".*?tibet.cpc.people.com.cn/.*?", deny=r".*?tibet.cpc.people.com.cn/\d{6}/.*?"),callback="parse_item", follow=True)
+        Rule(LinkExtractor(allow=r".*?tibet.cpc.people.com.cn/\d{2-10}/.*?", deny=r".*?tibet.cpc.people.com.cn/.*?"), follow=True),
+        Rule(LinkExtractor(allow=r".*?tibet.cpc.people.com.cn/.*?", deny=r".*?tibet.cpc.people.com.cn/\d{2-10}/.*?"),callback="parse_item", follow=True)
     )
 
     @staticmethod
